@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Total Tree Weight Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"],
+        button {
+            padding: 5px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            background-color: #f2f2f2;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        function calculateTotalWeight() {
+            var landArea = parseFloat(document.getElementById("landArea").value);
+            var widthBetweenPlants = parseFloat(document.getElementById("widthBetweenPlants").value);
+            var weightPerTree = parseFloat(document.getElementById("weightPerTree").value) || 15; // Default weight of 15 kilograms per tree if input is empty or invalid
+            var pricePerTon = parseFloat(document.getElementById("pricePerTon").value) || 2000; // Default price of $2000 per ton if input is empty or invalid
+            var plantsTarePerAcre = parseFloat(document.getElementById("plantsTarePerAcre").value) || 0; // Default plants tare per acre of 0 if input is empty or invalid
+              var totalTrees = Math.floor(43560 / (widthBetweenPlants * widthBetweenPlants));
+
+            var netTotalTrees = totalTrees - plantsTarePerAcre;
+            var totalWeightTons = ((netTotalTrees * weightPerTree) / 1000).toFixed(2);
+            var totalCost = (totalWeightTons * pricePerTon).toFixed(2);
+
+            var resultText = "Total Trees: " + netTotalTrees + "<br/>Total Weight (in tons): " + totalWeightTons + "<br/>Total Cost: $" + totalCost;
+            document.getElementById("result").innerHTML = resultText;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Total Tree Weight Calculator</h1>
+
+        <label for="landArea">Land Area (in acres):</label>
+        <input type="number" id="landArea">
+
+        <label for="widthBetweenPlants">Width Between Plants (in feet):</label>
+        <input type="number" id="widthBetweenPlants">
+
+        <label for="weightPerTree">Weight Per Tree (in kilograms):</label>
+        <input type="number" id="weightPerTree" value="15">
+
+        <label for="pricePerTon">Price Per Ton:</label>
+        <input type="number" id="pricePerTon" value="2000">
+
+        <label for="plantsTarePerAcre">Plants Tare per Acre:</label>
+        <input type="number" id="plantsTarePerAcre" value="0">
+
+        <button onclick="calculateTotalWeight()">Calculate</button>
+
+        <div id="result"></div>
+    </div>
+</body>
+</html>
